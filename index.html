@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로또 번호 생성기</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #343a40;
+        }
+
+        .lotto-numbers {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            font-weight: bold;
+            color: #495057;
+        }
+
+        .lotto-set {
+            margin-bottom: 15px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>로또 번호 생성기</h1>
+        <div id="lottoNumbersContainer"></div>
+        <button onclick="generateLottoSets()">번호 생성하기</button>
+    </div>
+
+    <script>
+        function generateLottoNumbers() {
+            const numbers = [];
+            while (numbers.length < 6) {
+                const randomNumber = Math.floor(Math.random() * 45) + 1;
+                if (!numbers.includes(randomNumber)) {
+                    numbers.push(randomNumber);
+                }
+            }
+            numbers.sort((a, b) => a - b);
+            return numbers.join(' - ');
+        }
+
+        function generateLottoSets() {
+            const container = document.getElementById('lottoNumbersContainer');
+            container.innerHTML = ''; // 기존 내용 삭제
+            for (let i = 0; i < 5; i++) {
+                const div = document.createElement('div');
+                div.className = 'lotto-set';
+                div.textContent = `세트 ${i + 1}: ${generateLottoNumbers()}`;
+                container.appendChild(div);
+            }
+        }
+    </script>
+</body>
+</html>
